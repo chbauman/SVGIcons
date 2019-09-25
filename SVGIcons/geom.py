@@ -60,13 +60,13 @@ def get_reg_polygon(n_sides, side_len):
     # Compute first corner
     ang = to_rad(360.0 / 2.0 / n_sides)
     b = side_len / 2.0 / np.tan(ang)
-    p1 = np.array([b, s / 2.0], dtype = np.float64)
+    p1 = np.array([b, side_len / 2.0], dtype = np.float64)
 
     # Compute remaining points by rotation
     rot_mat = get_rot_mat(360.0 / n_sides)
     res = np.empty((2, n_sides), dtype = np.float64)
     res[:, 0] = p1
-    for k in range(n_sides):
+    for k in range(n_sides - 1):
         res[:, k + 1] = np.matmul(rot_mat, res[:, k])
 
     return res
