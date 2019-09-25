@@ -7,7 +7,7 @@ from svg_util import *
 
 def create_random():
     """
-    Creates the fancy triangular shape and saves
+    Creates some shape and saves
     it as a .svg image.
     """
 
@@ -25,29 +25,10 @@ def create_random():
     polyg = get_reg_polygon(n, s)
     star = poly_to_star(polyg, n, n_connect)
 
-    p = draw.Path(stroke_width=2, 
-                  stroke=line_col,
-                  fill=fg_col, 
-                  fill_opacity=1.0)    
-    p.M(*star[:, -1])
-    for k in range(n):
-        p.L(*star[:, k])
+    # Draw and save
+    draw_points(star, name, bg_margin_ratio)
 
-    p.Z()
-
-    # Background
-    sz_half = int(bg_margin_ratio * np.max(np.abs(polyg)))
-    sz = 2 * sz_half    
-    bg_rect = draw.Rectangle(-sz_half, -sz_half, sz, sz, fill=bg_col)
-
-    # Draw
-    d = draw.Drawing(sz, sz, origin='center')
-    d.append(bg_rect)
-    d.append(p)
-
-    # Save
-    save_path = get_img_path(name)
-    d.saveSvg(save_path)
+    return
 
 
 
