@@ -12,33 +12,36 @@ def create_random():
     """
 
     # Parameters 
-    n = 7
-    s = 100.0
+    n = 31
+    n_connect = 13
+    s = 50.0
     bg_col = '#1248ff'
     fg_col = '#000000'
+    line_col = '#ffffff'
     name = 'random_pat'
+    bg_margin_ratio = 1.2
 
-    # Draw
-    sz = 400
-    d = draw.Drawing(sz, sz, origin='center')
-
-    # Background
-    bg_rect = draw.Rectangle(-sz / 2, -sz / 2, sz, sz, fill=bg_col)
-    d.append(bg_rect)
-
-    p = draw.Path(stroke_width=0, 
-                  stroke=fg_col,
-                  fill=fg_col, 
-                  fill_opacity=1.0)
-
-    n = 7
+    # Compute polygon
     polyg = get_reg_polygon(n, s)
 
-    p.M(*polyg[:, -1])
+    p = draw.Path(stroke_width=2, 
+                  stroke=line_col,
+                  fill=fg_col, 
+                  fill_opacity=1.0)    
+    p.M(*polyg[:, -n_connect])
     for k in range(n):
-        p.L(*polyg[:, k])
+        p.L(*polyg[:, (n_connect * k) % n])
 
     p.Z()
+
+    # Background
+    sz_half = int(bg_margin_ratio * np.max(np.abs(polyg)))
+    sz = 2 * sz_half    
+    bg_rect = draw.Rectangle(-sz_half, -sz_half, sz, sz, fill=bg_col)
+
+    # Draw
+    d = draw.Drawing(sz, sz, origin='center')
+    d.append(bg_rect)
     d.append(p)
 
     # Save
