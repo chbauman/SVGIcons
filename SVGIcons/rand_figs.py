@@ -23,14 +23,15 @@ def create_random():
 
     # Compute polygon
     polyg = get_reg_polygon(n, s)
+    star = poly_to_star(polyg, n, n_connect)
 
     p = draw.Path(stroke_width=2, 
                   stroke=line_col,
                   fill=fg_col, 
                   fill_opacity=1.0)    
-    p.M(*polyg[:, -n_connect])
+    p.M(*star[:, -1])
     for k in range(n):
-        p.L(*polyg[:, (n_connect * k) % n])
+        p.L(*star[:, k])
 
     p.Z()
 

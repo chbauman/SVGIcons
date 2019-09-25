@@ -71,3 +71,23 @@ def get_reg_polygon(n_sides, side_len):
 
     return res
 
+def poly_to_star(poly, n_sides, n_connect):
+    """
+    Turns a regular polygon into a star by
+    permuting the corners accordingly.
+    """
+
+    if n_sides / n_connect == 0:
+        raise ValueError("Your input to my nice function sucks!!!")
+
+    # Prepare output
+    n_tot = poly.shape[1]
+    res = np.empty(poly.shape, dtype = poly.dtype)
+
+    # Permute
+    for k in range(n_tot):
+        res[:, k] = poly[:, (k * n_connect) % n_tot]
+
+    return res
+
+
