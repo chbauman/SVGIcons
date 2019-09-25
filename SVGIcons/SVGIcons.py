@@ -7,7 +7,7 @@ from rand_figs import create_random
 def main():
     print("Hello")
     create_random()
-    #create_tria_svg()
+    create_tria_svg()
 
 main()
 

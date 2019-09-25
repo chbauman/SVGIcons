@@ -3,7 +3,7 @@ import numpy as np
 import drawSvg as draw
 
 from geom import *
-
+from svg_util import *
 
 def create_random():
     """
@@ -45,8 +45,8 @@ def create_random():
     d.append(p)
 
     # Save
-    d.saveSvg(name + '.svg')
-    pass
+    save_path = get_img_path(name)
+    d.saveSvg(save_path)
 
 
 
