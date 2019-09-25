@@ -6,13 +6,13 @@ def to_rad(degs):
     """
     Converts from degrees to radians.
     """
-    return degs / 180 * np.pi
+    return degs / 180.0 * np.pi
 
 def to_deg(rads):
     """
     Converts from radians to degrees.
     """
-    return rads * 180 / np.pi
+    return rads * 180.0 / np.pi
 
 def get_rot_mat(degs):
     """
@@ -50,4 +50,24 @@ def get_iso_tria(side_len, rot = None):
 
     # Return
     return tria_arr_trp
+
+def get_reg_polygon(n_sides, side_len):
+    """
+    Computes the corner coordinates of a 'n_sides'-sided
+    regular polygon.
+    """
+
+    # Compute first corner
+    ang = to_rad(360.0 / 2.0 / n_sides)
+    b = side_len / 2.0 / np.tan(ang)
+    p1 = np.array([b, s / 2.0], dtype = np.float64)
+
+    # Compute remaining points by rotation
+    rot_mat = get_rot_mat(360.0 / n_sides)
+    res = np.empty((2, n_sides), dtype = np.float64)
+    res[:, 0] = p1
+    for k in range(n_sides):
+        res[:, k + 1] = np.matmul(rot_mat, res[:, k])
+
+    return res
 

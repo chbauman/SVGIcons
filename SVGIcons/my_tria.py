@@ -1,11 +1,14 @@
 
-
 import numpy as np
 import drawSvg as draw
 
 from geom import *
 
 def create_tria_svg():
+    """
+    Creates the fancy triangular shape and saves
+    it as a .svg image.
+    """
 
     # Parameters 
     d_0 = 0.3
@@ -26,7 +29,8 @@ def create_tria_svg():
     d = draw.Drawing(sz, sz, origin='center')
 
     # Background
-    d.append(draw.Rectangle(-sz / 2, -sz / 2, sz, sz, fill='#1248ff'))
+    bg_rect = draw.Rectangle(-sz / 2, -sz / 2, sz, sz, fill=bg_col)
+    d.append(bg_rect)
 
     p = draw.Path(stroke_width=0, 
                   stroke=fg_col,
