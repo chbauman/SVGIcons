@@ -21,6 +21,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="geom.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="my_tria.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SVGIcons.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
